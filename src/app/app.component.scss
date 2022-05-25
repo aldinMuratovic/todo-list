@@ -1,0 +1,10 @@
+$primaryColor: #ff4081;
+$secondaryColor: #3f51b5;
+
+::ng-deep .nav-link {
+  color: $primaryColor
+}
+
+::ng-deep .nav-link:hover {
+  color: $secondaryColor
+}

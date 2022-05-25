@@ -1,15 +1,6 @@
-<div class="container p-5">
-  <div class="row">
-    <h1>Today Task</h1>
-  </div>
-  <div class="row">
-    <div class="col-md-8">
-      <app-task-navbar></app-task-navbar>
-    </div>
-  </div>
-  <div class="row mt-5">
-    <div class="col-md-8">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+<app-task-list></app-task-list>
+
+<div class="row mt-50">
+  <h2>Upcoming Tasks</h2>
+  <app-task-list></app-task-list>
 </div>

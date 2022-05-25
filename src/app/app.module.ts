@@ -17,6 +17,8 @@ import { TaskNavbarComponent } from './components/task-navbar/task-navbar.compon
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatButtonModule } from "@angular/material/button";
+import { MeetingCardComponent } from './components/meeting-card/meeting-card.component';
+import { MatCardModule } from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { MatButtonModule } from "@angular/material/button";
     SidenavComponent,
     TaskContainerComponent,
     TaskListComponent,
-    TaskNavbarComponent
+    TaskNavbarComponent,
+    MeetingCardComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { MatButtonModule } from "@angular/material/button";
     MatIconModule,
     MatCheckboxModule,
     MatBadgeModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

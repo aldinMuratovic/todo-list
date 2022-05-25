@@ -3,6 +3,26 @@
     <app-sidenav></app-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-task-container></app-task-container>
+    <div class="container p-5">
+      <div class="row">
+        <h1 class="task-title p-3">Your Tasks</h1>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <app-task-navbar></app-task-navbar>
+        </div>
+        <div class="col-md-4">
+          <h1>Meetings Scheduled</h1>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-md-8">
+          <router-outlet></router-outlet>
+        </div>
+        <div class="col-md-4">
+          <app-meeting-card></app-meeting-card>
+        </div>
+      </div>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

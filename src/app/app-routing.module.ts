@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from "./components/home/home.component";
 import { TaskListComponent } from "./components/task-list/task-list.component";
+import { TaskContainerComponent } from "./components/task-container/task-container.component";
 
 const routes: Routes = [
   {
@@ -9,7 +10,7 @@ const routes: Routes = [
     component: HomeComponent,
     children: [
       { path: 'all', component: TaskListComponent },
-      { path: '', redirectTo: 'all', pathMatch: 'full' }
+      { path: '', component: TaskContainerComponent }
     ]
   }
 ];
