@@ -19,6 +19,11 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatButtonModule } from "@angular/material/button";
 import { MeetingCardComponent } from './components/meeting-card/meeting-card.component';
 import { MatCardModule } from "@angular/material/card";
+import { AddTaskComponent } from './components/add-task/add-task.component';
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatInputModule } from "@angular/material/input";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 @NgModule({
   declarations: [
@@ -28,7 +33,8 @@ import { MatCardModule } from "@angular/material/card";
     TaskContainerComponent,
     TaskListComponent,
     TaskNavbarComponent,
-    MeetingCardComponent
+    MeetingCardComponent,
+    AddTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +46,11 @@ import { MatCardModule } from "@angular/material/card";
     MatCheckboxModule,
     MatBadgeModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
