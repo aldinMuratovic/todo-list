@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import {
-  catchError, combineLatest, EMPTY,
-  filter, map, merge,
+  catchError, EMPTY,
+  filter, map, merge, mergeMap,
   Subject,
   switchMap,
   tap,
@@ -44,7 +44,7 @@ export class UserService {
   )
 
   userInfo$ = merge([this.loggedInUser$, this.registeredUser$]).pipe(
-    switchMap(user => user)
+    mergeMap(user => user)
   )
 
   logout$ = this.logoutEventSubject.asObservable().pipe(

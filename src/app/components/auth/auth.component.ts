@@ -19,7 +19,7 @@ export class AuthComponent {
     age: ['']
   });
 
-  userInfo$: Observable<IUser> = this.userService.userInfo$;
+  userInfo$: Observable<IUser> = this.userService.userInfo$
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 
