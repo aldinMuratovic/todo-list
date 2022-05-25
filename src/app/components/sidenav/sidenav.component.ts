@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-import { AddTaskComponent } from "../add-task/add-task.component";
-import { MatDialog } from "@angular/material/dialog";
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sidenav',
@@ -9,12 +7,7 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class SidenavComponent  {
 
-  constructor(public dialog: MatDialog) {}
+  @Output() onLogout = new EventEmitter<void>()
+  @Output() onAddTask = new EventEmitter<void>()
 
-  openDialog() {
-    this.dialog.open(AddTaskComponent, {
-      width: '500px',
-      height: '400px'
-    });
-  }
 }

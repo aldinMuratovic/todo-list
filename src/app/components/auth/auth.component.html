@@ -1,0 +1,67 @@
+<section class="h-100 auth-container">
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start h-100">
+    <div class="container mt-150">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5 display-3 fw-bold ls-tight">
+            Simple Task Management <br />
+            <span class="text-primary">to stay organized</span>
+          </h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+            quibusdam tempora at cupiditate quis eum maiores libero
+            veritatis? Dicta facilis sint aliquid ipsum atque?
+          </p>
+        </div>
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <div class="card">
+            <div class="card-body py-5 px-md-5">
+              <form>
+                <div class="row">
+                  <form [formGroup]="loginForm">
+                    <div class="mb-3">
+                      <label for="email-address" class="form-label">Email address</label>
+                      <input [class.is-invalid]="loginForm?.get('email')?.touched && loginForm?.get('email')?.invalid"
+                             type="email" formControlName="email" class="form-control" id="email-address" aria-describedby="emailHelp">
+                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                      <label for="password" class="form-label">Password</label>
+                      <input [class.is-invalid]="loginForm?.get('password')?.touched && loginForm?.get('password')?.invalid"
+                             type="password" formControlName="password" class="form-control" id="password">
+                    </div>
+                    <ng-container *ngIf="isRegister">
+                      <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" formControlName="name" class="form-control" id="name">
+                      </div>
+                      <div class="mb-3">
+                        <label for="age" class="form-label">Age</label>
+                        <input type="number" formControlName="age" class="form-control" id="age">
+                      </div>
+                    </ng-container>
+                  </form>
+
+                  <div class="text-center">
+                    <button type="button" class="btn btn-primary btn-block mb-4 text" (click)="onSubmitUser()">
+                      <ng-container *ngIf="isRegister">Register</ng-container>
+                      <ng-container *ngIf="!isRegister">Login</ng-container>
+                    </button>
+                  </div>
+                  <div class="text-center"><p>Don't have an account ?</p>
+                    <button type="button" class="btn btn-link btn-floating mx-1" (click)="isRegister = !isRegister">
+                      <ng-container *ngIf="!isRegister">Register</ng-container>
+                      <ng-container *ngIf="isRegister">Login</ng-container>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-container *ngIf="login$ | async"></ng-container>

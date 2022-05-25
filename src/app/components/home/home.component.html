@@ -1,6 +1,7 @@
 <mat-sidenav-container class="h-100">
   <mat-sidenav mode="side" opened>
-    <app-sidenav></app-sidenav>
+    <app-sidenav (onLogout)="logoutUser()" (onAddTask)="openAddTaskModal()">
+    </app-sidenav>
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="container p-5">

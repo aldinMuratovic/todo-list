@@ -1,13 +1,13 @@
 <div class="row p-4">
   <mat-icon class="my-3 mx-5 mb-5" aria-hidden="false" aria-label="ToDoList">done_all</mat-icon>
   <nav class="nav flex-column nav-pills nav-fill">
-    <a class="nav-link active-nav-item" aria-current="page" href="#">Active</a>
-    <a class="nav-link" href="#">Link</a>
-    <a class="nav-link" href="#">Link</a>
+    <a class="nav-link active-nav-item" aria-current="page">Home</a>
+    <a class="nav-link">Link</a>
+    <a (click)="onLogout.emit()" class="nav-link">Logout</a>
   </nav>
 </div>
 <div class="button-container">
-  <button mat-fab color="accent" (click)="openDialog()">
+  <button mat-fab color="accent" (click)="onAddTask.emit()">
     <mat-icon>add</mat-icon>
   </button>
 </div>

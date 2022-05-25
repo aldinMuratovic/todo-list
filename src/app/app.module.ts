@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { BaseUrlInterceptor } from "./base-url.interceptor";
 import { HomeComponent } from './components/home/home.component';
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -24,6 +24,9 @@ import { MatDialogModule } from "@angular/material/dialog";
 import { MatInputModule } from "@angular/material/input";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
+import { AuthComponent } from './components/auth/auth.component';
+import { ReactiveFormsModule } from "@angular/forms";
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { MatNativeDateModule } from "@angular/material/core";
     TaskListComponent,
     TaskNavbarComponent,
     MeetingCardComponent,
-    AddTaskComponent
+    AddTaskComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,10 @@ import { MatNativeDateModule } from "@angular/material/core";
     MatDialogModule,
     MatInputModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
