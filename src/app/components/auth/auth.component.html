@@ -24,12 +24,22 @@
                       <label for="email-address" class="form-label">Email address</label>
                       <input [class.is-invalid]="loginForm?.get('email')?.touched && loginForm?.get('email')?.invalid"
                              type="email" formControlName="email" class="form-control" id="email-address" aria-describedby="emailHelp">
-                      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                      <ng-container *ngIf="loginForm?.get('email') as email">
+                        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="alert px-0 text-danger">
+                          <div *ngIf="email?.errors?.['required']">Email is required.</div>
+                        </div>
+                      </ng-container>
                     </div>
                     <div class="mb-3">
                       <label for="password" class="form-label">Password</label>
                       <input [class.is-invalid]="loginForm?.get('password')?.touched && loginForm?.get('password')?.invalid"
                              type="password" formControlName="password" class="form-control" id="password">
+                      <ng-container  *ngIf="loginForm?.get('password') as password">
+                        <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="alert px-0 text-danger">
+                          <div *ngIf="password?.errors?.['required']">Password is required.</div>
+                          <div *ngIf="password.errors?.['minlength']">Password must be at least 8 characters long.</div>
+                        </div>
+                      </ng-container>
                     </div>
                     <ng-container *ngIf="isRegister">
                       <div class="mb-3">
@@ -64,4 +74,4 @@
     </div>
   </div>
 </section>
-<ng-container *ngIf="login$ | async"></ng-container>
+<ng-container *ngIf="userInfo$ | async"></ng-container>

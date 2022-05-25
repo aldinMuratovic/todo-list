@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserService } from "../../services/user.service";
 import { AddTaskComponent } from "../add-task/add-task.component";
 import { MatDialog } from "@angular/material/dialog";
@@ -10,10 +10,12 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class HomeComponent {
 
+  $logout = this.userService.logout$;
+
   constructor(private userService: UserService, private dialog: MatDialog) { }
 
   logoutUser() {
-    this.userService.logout()
+    this.userService.logoutUser()
   }
 
   openAddTaskModal() {

@@ -1,13 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import {
-  catchError,
-  filter,
+  catchError, combineLatest, EMPTY,
+  filter, map, merge,
   Subject,
-  Subscription,
   switchMap,
   tap,
-  throwError
 } from "rxjs";
 import { IUser } from "../model/IUser";
 import { Router } from "@angular/router";
@@ -16,32 +14,59 @@ import { ToastrService } from "ngx-toastr";
 @Injectable({ providedIn: "root" })
 export class UserService {
 
-  loginSubject = new Subject<IUser>();
-  registerSubject = new Subject<IUser>();
+  private loginSubject = new Subject<IUser>();
+  private registerSubject = new Subject<IUser>();
+  private logoutEventSubject = new Subject<void>();
 
   loginInfo$ = this.loginSubject.asObservable();
-  registerSubject$ = this.registerSubject.asObservable();
-  logout$: Subscription | undefined;
+  registerInfo$ = this.registerSubject.asObservable();
 
-  login$ = this.loginInfo$.pipe(
+  loggedInUser$ = this.loginInfo$.pipe(
     filter((user: IUser) => (Object.keys(user).length > 0)),
-    switchMap(user => this.http.post<{token: string, user: IUser}>('user/login', user)),
-    tap((res) => this.setTokenToLocalStorage(res.token)),
-    catchError(err => this.handleError('Please check your credentials and try again!', 'Unable to login', err)),
+    switchMap(user => this.http.post<{token: string, user: IUser}>('user/login', user)
+      .pipe(
+        tap((res) => this.setTokenToLocalStorage(res.token)),
+        catchError(() => this.handleError('Please check your credentials and try again!', 'Unable to login')),
+        map((response) => response.user),
+      )
+    )
   )
 
-  register$ = this.registerSubject$.pipe(
+  registeredUser$ = this.registerInfo$.pipe(
     filter((user: IUser) => (Object.keys(user).length > 0)),
-    switchMap(user => this.http.post<{token: string, user: IUser}>('user/register', user)),
-    tap((res) => this.setTokenToLocalStorage(res.token)),
-    catchError(err => this.handleError('Please check your credentials and try again!', 'Unable to register', err))
+    switchMap(user => this.http.post<{token: string, user: IUser}>('user/register', user)
+      .pipe(
+        tap((res) => this.setTokenToLocalStorage(res.token)),
+        catchError(() => this.handleError('Please check your credentials and try again!', 'Unable to login')),
+        map((response) => response.user),
+      )
+    )
   )
 
-  logout() {
-     this.logout$ = this.http.post('user/logout', {}).subscribe(() => {
+  userInfo$ = merge([this.loggedInUser$, this.registeredUser$]).pipe(
+    switchMap(user => user)
+  )
+
+  logout$ = this.logoutEventSubject.asObservable().pipe(
+    switchMap(() => this.http.post('user/logout', {}).pipe(
+      tap(() => {
         localStorage.removeItem('token')
-        this.route.navigateByUrl('login')
-     })
+        this.route.navigateByUrl('auth')
+      }),
+      catchError(err => this.handleError(err.message, 'Unable to logout')),
+    ))
+  )
+
+  logoutUser() {
+    this.logoutEventSubject.next()
+  }
+
+  setLoginInfo(user: IUser) {
+    this.loginSubject.next(user);
+  }
+
+  setRegisterInfo(user: IUser) {
+    this.registerSubject.next(user);
   }
 
   isLoggedIn() {
@@ -57,11 +82,13 @@ export class UserService {
     this.route.navigateByUrl('')
   }
 
-  handleError(errorMessage: string, errorTitle: string, error: any) {
-    this.toastService.error(errorMessage, errorTitle, {
-      timeOut: 3000,
-    });
-    return throwError(error);
+  handleError(errorMessage: string, errorTitle: string) {
+    this.route.navigateByUrl('auth').then(() => {
+      this.toastService.error(errorMessage, errorTitle, {
+        timeOut: 3000,
+      });
+    })
+    return EMPTY;
   }
 
   constructor(private http: HttpClient, private route: Router, private toastService: ToastrService) {}
